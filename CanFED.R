@@ -1,0 +1,5 @@
+library(tidyverse)
+library(readr)
+can_fed <- read_csv("Documents/GitHub/GGR472-Final-Project/GUF_3000m.csv")
+can_fed_on <- can_fed %>% filter(province == "ON" & cmauid == 535)
+print(can_fed_on %>% group_by(csdname) %>% summarise(count = n()), n=24)
