@@ -125,15 +125,24 @@ layer_transit_buffer <- layer_can_fed %>% mutate("centroid" = st_centroid(layer_
 buffers <- st_buffer(layer_transit_buffer$"centroid", 1500)
 layer_transit_buffer$buffers <- buffers
 
-bus_stops_within_buffers <- st_join(bus_stops, layer_transit_buffer, join = st_within)
+bus_stops_within_buffers <- st_join(bus_stops, layer_transit_buffer, join = st_intersects)
 
 # Count how many bus stops are in each buffer (group by the buffer geometry ID or attribute)
-bus_1 <- bus_stops_within_buffers %>% aggregate(buffers ~ dauid, data = bus_stops, FUN = length)
-
 buffer_bus_stop_count <- bus_stops_within_buffers %>%
   group_by(dauid) %>% 
   summarise(count = n()) %>% st_drop_geometry()
 
-layer_transit_buffer <- full_join(layer_transit_buffer, buffer_bus_stop_count, by = "dauid")     
+#there were 217 bus stops that weren't intersecting any DA
+
+layer_transit_buffer <- full_join(layer_transit_buffer, buffer_bus_stop_count, by = "dauid")
+layer_transit_buffer$centroid <- st_as_text(layer_transit_buffer$centroid)
+layer_transit_buffer$buffers <- st_as_text(layer_transit_buffer$buffers)
+layer_transit_buffer <- st_sf(layer_transity_buffer)
+
+#writing all layers to geojson
+st_write(layer_can_fed, "can_fed.geojson")
+st_write(layer_age_data, "age.geojson")
+st_write(layer_mother_tongue, "mother_tongue.geojson")
+st_write(layer_transit_buffer, "transit_data.geojson")
 
 
