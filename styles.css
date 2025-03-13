@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: linear-gradient(to bottom, #0073e6, #ffd700, #333 80%); /* Background gradient colors*/
+    color: white; /* Text color */
+    min-height: 100vh; /* Ensure gradient covers the full height */
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black header */
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    backdrop-filter: blur(5px); /* Blur effect */
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.map-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.map-container section {
+    flex: 1 1 calc(50% - 20px); /* Two maps side by side with a gap */
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.map {
+    height: 400px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.legend {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.legend h4 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: #333; 
+}
+
+.legend div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.legend span {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    display: inline-block;
+    border-radius: 4px; /* Rounded corners for color indicators */
+}
+
+section {
+    padding: 20px;
+}
+
+h2 {
+    color: #333; 
+}
+
+footer {
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black footer */
+    padding: 20px;
+    text-align: center;
+    backdrop-filter: blur(5px); /*Blur effect */
+    color: white; 
+}

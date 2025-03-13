@@ -3,14 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <title>Food Environment and Census Analysis</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <div id="can-fed-map" class="map-container"></div> 
-    <script src="script.js"> </script>
+    <header>
+        <h1>Food Environment and Census Analysis Web Map</h1>
+        <nav>
+            <ul>
+                <li><a href="#canfed">CanFed</a></li>
+                <li><a href="#demographics">Demographics</a></li>
+                <li><a href="#data-sources">Data Sources</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="map-container">
+            <section id="canfed">
+                <h2>CanFed Map</h2>
+                <div id="map1" class="map"></div>
+                <div id="legend1" class="legend">
+                    <h4>Legend</h4>
+                    <div><span style="background-color: #0073e6"></span>High Food Insecurity</div>
+                    <div><span style="background-color: #ffd700"></span>Low Food Insecurity</div>
+                </div>
+            </section>
+
+            <section id="demographics">
+                <h2>Demographics Map</h2>
+                <div id="map2" class="map"></div>
+                <div id="legend2" class="legend">
+                    <h4>Legend</h4>
+                    <div><span style="background-color: #0073e6"></span>High Population Density</div>
+                    <div><span style="background-color: #ffd700"></span>Low Population Density</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <section id="data-sources">
+            <h2>Data Sources</h2>
+            <p>Add links.</p>
+        </section>
+    </footer>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script src="scripts.js"></script>
 </body>
-</html>doctype
+</html>
