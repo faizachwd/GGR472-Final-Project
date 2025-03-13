@@ -116,6 +116,8 @@ mother_tongue_data$GEO_NAME <- as.numeric(mother_tongue_data$GEO_NAME)
 layer_mother_tongue <- left_join(mother_tongue_data, DA_shp_geo, by = join_by(x$GEO_NAME == y$DAUID)) %>% st_as_sf()
 
 age_data$GEO_NAME <- as.numeric(age_data$GEO_NAME)
+age_data$`Population above 65 (%)` = (age_data$`65 years and over`/age_data$`Total - Age`)*100
+
 layer_age_data <- left_join(age_data, DA_shp_geo, by = join_by(x$GEO_NAME == y$DAUID)) %>% st_as_sf()
 
 layer_can_fed <- combined_data %>% select(mRFEI_cat_ON, dauid, geometry) %>% st_as_sf()
@@ -137,12 +139,25 @@ buffer_bus_stop_count <- bus_stops_within_buffers %>%
 layer_transit_buffer <- full_join(layer_transit_buffer, buffer_bus_stop_count, by = "dauid")
 layer_transit_buffer$centroid <- st_as_text(layer_transit_buffer$centroid)
 layer_transit_buffer$buffers <- st_as_text(layer_transit_buffer$buffers)
-layer_transit_buffer <- st_sf(layer_transity_buffer)
+layer_transit_buffer <- st_sf(layer_transit_buffer)
+
+DA_boundaries <- combined_data %>% select(dauid, geometry) %>% st_sf()
 
 #writing all layers to geojson
+layer_can_fed <- st_transform(layer_can_fed, crs = 4326)
+layer_age_data <- st_transform(layer_age_data, crs = 4326)
+layer_mother_tongue <- st_transform(layer_mother_tongue, crs = 4326)
+layer_transit_buffer <- st_transform(layer_transit_buffer, crs = 4326)
+bus_stops <- st_transform(bus_stops, crs = 4326)
+DA_boundaries <- st_transform(DA_boundaries, crs = 4326)
+
+
+
 st_write(layer_can_fed, "can_fed.geojson")
 st_write(layer_age_data, "age.geojson")
 st_write(layer_mother_tongue, "mother_tongue.geojson")
 st_write(layer_transit_buffer, "transit_data.geojson")
+st_write(bus_stops, "bus_stops.geojson")
+st_write(DA_boundaries, "da_boundaries.geojson" )
 
 
