@@ -1,11 +1,11 @@
 // Mapbox access token
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2FuYWhhc2hpbSIsImEiOiJjbTV5NnpreTcwMTBqMnJvN2ltN2Jjcmo1In0.JpuPVI1IOhbjC1mjNPi5YQ'; 
+mapboxgl.accessToken = 'pk.eyJ1IjoiZmFpemExMzIiLCJhIjoiY201d3E1Y2JwMDByYzJrb290MWltMTN1dyJ9.JsEiKVuT3vMCT8JQDlDA4g';
 
 // Initialize the first map (CanFed Map)
 const map_can_fed = new mapboxgl.Map({
-    container: "can-fed-map",
+    container: "map1",
     style: 'mapbox://styles/faiza132/cm72f283a007a01quayc2g04v',
-    center: [-79.3878583, 43.7205208], // Location [lon, lat] (Mississauga)
+    center: [-79.640579, 43.595310], // Location [lon, lat] (Mississauga)
     zoom: 12
 });
 
@@ -13,25 +13,27 @@ const map_can_fed = new mapboxgl.Map({
 map_can_fed.addControl(new mapboxgl.NavigationControl());
 
 map_can_fed.on('load', () => {
-    map_can_fed.addSource('transit_data', {
-        'type': 'vector',
-        'url': "mapbox://faiza132.6pdcyj1q"
+    map_can_fed.addSource('can_fed', {
+        type: 'geojson',
+        data: "https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/can_fed.geojson"
     });
     //Layer with symbology
     map_can_fed.addLayer({
-        'id': 'transit_buffers',
-        'type': 'circle',
-        'source': 'transit_data',
-        'minzoom': 0,
-        'maxzoom': 24,
+        'id': 'can_fed_da',
+        'type': 'fill',
+        'source': 'can_fed',
         'paint': {
-            'circle-color': "#f77f00",
-            'circle-opacity': 0.9,
-            'circle-stroke-color': 'black',
-            'circle-radius': 6
+            'fill-outline-color': 'black',
+            'fill-color': [
+                'step',
+                ['get', 'mRFEI_cat_ON'], // Property you want to use for coloring
+                '#B3C3D1', // Default color for values < first step
+                1.0, '#EE6055', // Values >= 1 
+                2.0, '#D59967', // Values >= 2 
+                3.0, '#C8B570', // Values >= 3 
+                4.0, '#BBD178'  // Values >= 4 
+            ]
         },
-        'source-layer': "transit_data-9938bw"
-
     });
 });
 
@@ -42,12 +44,211 @@ new mapboxgl.Marker()
     .addTo(map_can_fed);
 
 // Initialize the second map (Demographics Map)
-var map_dem = new mapboxgl.Map({
-    container: 'map2', 
-    style: 'mapbox://styles/mapbox/light-v11', 
+const map_dem = new mapboxgl.Map({
+    container: 'map2',
+    style: 'mapbox://styles/mapbox/light-v11',
     center: [-79.640579, 43.595310], // Location [lon, lat] (Mississauga)
-    zoom: 10 
+    zoom: 10
 });
+
+fetch("https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/bus_stops.geojson")
+    .then(response => response.json())
+    .then(response => {
+        bus_stops = response; // Store geojson as variable using URL from fetch response
+    })
+
+
+// fetch("https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/da_boundaries.geojson")
+//     .then(response => response.json())
+//     .then(data => {
+//         // Generate buffers while preserving dauid
+//         const bufferGeoJSON = {
+//             type: "FeatureCollection",
+//             features: data.features.map(feature => {
+//                 const centroid = turf.centroid(feature); // Create centroid
+//                 const buffer = turf.buffer(centroid, 2000, { units: 'meters' }); // Create buffer
+
+//                 return {
+//                     type: "Feature",
+//                     geometry: buffer.geometry, // Store only the buffer geometry
+//                     properties: {
+//                         dauid: feature.properties.dauid // Preserve dauid property
+//                     }
+//                 };
+//             })
+//         };
+//         // Add buffer data as a new source in Mapbox
+//         map_dem.addSource("bufferLayer", {
+//             type: "geojson",
+//             data: bufferGeoJSON
+//         });
+
+//         // Add the buffer layer to visualize it
+//         map_dem.addLayer({
+//             id: "bufferLayer",
+//             type: "fill",
+//             source: "bufferLayer",
+//             paint: {
+//                 "fill-color": "blue",
+//                 "fill-opacity": 0.5
+//             }
+//         });
+
+//     });
+
+
+
+map_dem.on('load', () => {
+
+    // map_dem.addSource('buffers', {
+    //     type: 'geojson',
+    //     data: bufferGeoJSON
+    // });
+
+    map_dem.addSource('age', {
+        type: 'geojson',
+        data: "https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/age.geojson"
+    });
+
+    map_dem.addSource('mother_tongue', {
+        type: 'geojson',
+        data: "https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/mother_tongue.geojson"
+    });
+
+    // map_dem.addSource('da_boundaries', {
+    //     type: 'geojson',
+    //     data: da_boundaries
+    // });
+
+    map_dem.addSource('bus_stops', {
+        type: 'geojson',
+        data: bus_stops
+    });
+
+    // map_dem.addLayer({
+    //     'id': 'buffers',
+    //     'type': 'fill',
+    //     'source': 'buffers',  // Source ID for the buffer layer
+    //     'paint': {
+    //         'fill-color': 'rgba(0, 0, 255, 0.5)',  // Buffer color (blue with transparency)
+    //         'fill-opacity': 0.5
+    //     },
+    //     'filter': ['==', '$type', 'Polygon']
+    // });
+
+
+    map_dem.addLayer({
+        'id': 'bus',
+        'type': 'circle',
+        'source': 'bus_stops',
+        'layout': { 'visibility': 'visible' },
+        'paint': {
+            'circle-opacity': 0.2,
+            'circle-stroke-color': 'black',
+            'circle-radius': 3
+        },
+    });
+
+    map_dem.addLayer({
+        'id': 'Mother Tongue',
+        'type': 'fill',
+        'source': 'mother_tongue',
+        'layout': { 'visibility': 'none' },
+        'paint': {
+            'fill-outline-color': 'black',
+            'fill-color': [
+                'step',
+                ['get', "Residents that who speak a non official language as a first language (%):"], // Property you want to use for coloring
+                '#F4D3C4', // default, 0 to 19% inclusive 
+                20.0, "#F0B1A0", // 20 to 39% inclusive
+                40.0, "#DC725E", // 40 to 59% inclusive
+                60.0, "#B84A36", // 60 to 79% inclusive
+                80.0, "#973220", // >= 80 
+            ]
+        },
+    });
+
+    map_dem.addLayer({
+        'id': 'Age',
+        'type': 'fill',
+        'source': 'age',
+        'layout': { 'visibility': 'visible' },
+        'paint': {
+            'fill-outline-color': 'black',
+            'fill-color': [
+                'step',
+                ['get', "Population above 65 (%)"], // Property you want to use for coloring
+                '#67A4CE', // default, 0 to 4% inclusive 
+                5.0, "#8DBCDB", // 5 to 9% inclusive
+                10.0, "#A6CBE3", // 10 to 14% inclusive
+                15.0, "#B7B5C7", // 15 to 19% inclusive
+                20.0, "#C0A7B6", // 20 to 29% inclusive
+                30.0, "#DD9298", // 30 to 59% inclusive
+                60.0, "#D4737B", // 60 to 89% inclusive
+                90.0, "#C5444F", // >= 90%
+            ]
+        },
+    });
+});
+
+
+
+//LAYERS, IGNORE FOR NOW
+
+map_dem.on('idle', () => {
+    // If these two layers were not added to the map, abort
+    if (!map_dem.getLayer('Age') || !map_dem.getLayer('Mother Tongue')) {
+        return;
+    }
+
+    // Enumerate ids of the layers.
+    const toggleableLayerIds = ['Age', 'Mother Tongue'];
+
+    // Set up the corresponding toggle button for each layer.
+    for (const id of toggleableLayerIds) {
+        // Skip layers that already have a button set up.
+        if (document.getElementById(id)) {
+            continue;
+        }
+
+        // Create a link.
+        const link = document.createElement('a');
+        link.id = id;
+        link.href = '#';
+        link.textContent = id;
+        link.className = 'active';
+
+        // Show or hide layer when the toggle is clicked.
+        link.onclick = function (e) {
+            const clickedLayer = this.textContent;
+            e.preventDefault();
+            e.stopPropagation();
+
+            const visibility = map_dem.getLayoutProperty(
+                clickedLayer,
+                'visibility'
+            );
+
+            // Toggle layer visibility by changing the layout object's visibility property.
+            if (visibility === 'visible') {
+                map_dem.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                this.className = '';
+            } else {
+                this.className = 'active';
+                map_dem.setLayoutProperty(
+                    clickedLayer,
+                    'visibility',
+                    'visible'
+                );
+            }
+        };
+
+        const layers = document.getElementById('menu');
+        layers.appendChild(link);
+    }
+});
+
+
 
 // 2nd Map Navigation Controls
 map_dem.addControl(new mapboxgl.NavigationControl());
@@ -60,4 +261,3 @@ new mapboxgl.Marker()
 
 
 
-    

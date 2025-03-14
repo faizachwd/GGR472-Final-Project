@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Environment and Census Analysis</title>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
 </head>
 <body>
+
     <header>
         <h1>Food Environment and Census Analysis Web Map</h1>
         <nav>
@@ -34,6 +37,7 @@
             <section id="demographics">
                 <h2>Demographics Map</h2>
                 <div id="map2" class="map"></div>
+                <nav id="menu"></nav>
                 <div id="legend2" class="legend">
                     <h4>Legend</h4>
                     <div><span style="background-color: #0073e6"></span>High Population Density</div>
@@ -41,6 +45,7 @@
                 </div>
             </section>
         </div>
+
     </main>
 
     <footer>
@@ -50,7 +55,6 @@
         </section>
     </footer>
 
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-    <script src="scripts.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
