@@ -122,32 +122,12 @@ layer_age_data <- left_join(age_data, DA_shp_geo, by = join_by(x$GEO_NAME == y$D
 
 layer_can_fed <- combined_data %>% select(mRFEI_cat_ON, dauid, geometry) %>% st_as_sf()
 
-#creating buffers around centroid of DA's and counting number of stops in each DA 1.5km radius from centroid
-layer_transit_buffer <- layer_can_fed %>% mutate("centroid" = st_centroid(layer_can_fed$geometry))
-buffers <- st_buffer(layer_transit_buffer$"centroid", 1500)
-layer_transit_buffer$buffers <- buffers
-
-bus_stops_within_buffers <- st_join(bus_stops, layer_transit_buffer, join = st_intersects)
-
-# Count how many bus stops are in each buffer (group by the buffer geometry ID or attribute)
-buffer_bus_stop_count <- bus_stops_within_buffers %>%
-  group_by(dauid) %>% 
-  summarise(count = n()) %>% st_drop_geometry()
-
-#there were 217 bus stops that weren't intersecting any DA
-
-layer_transit_buffer <- full_join(layer_transit_buffer, buffer_bus_stop_count, by = "dauid")
-layer_transit_buffer$centroid <- st_as_text(layer_transit_buffer$centroid)
-layer_transit_buffer$buffers <- st_as_text(layer_transit_buffer$buffers)
-layer_transit_buffer <- st_sf(layer_transit_buffer)
-
 DA_boundaries <- combined_data %>% select(dauid, geometry) %>% st_sf()
 
 #writing all layers to geojson
 layer_can_fed <- st_transform(layer_can_fed, crs = 4326)
 layer_age_data <- st_transform(layer_age_data, crs = 4326)
 layer_mother_tongue <- st_transform(layer_mother_tongue, crs = 4326)
-layer_transit_buffer <- st_transform(layer_transit_buffer, crs = 4326)
 bus_stops <- st_transform(bus_stops, crs = 4326)
 DA_boundaries <- st_transform(DA_boundaries, crs = 4326)
 
@@ -156,7 +136,6 @@ DA_boundaries <- st_transform(DA_boundaries, crs = 4326)
 st_write(layer_can_fed, "can_fed.geojson")
 st_write(layer_age_data, "age.geojson")
 st_write(layer_mother_tongue, "mother_tongue.geojson")
-st_write(layer_transit_buffer, "transit_data.geojson")
 st_write(bus_stops, "bus_stops.geojson")
 st_write(DA_boundaries, "da_boundaries.geojson" )
 
