@@ -15,9 +15,9 @@
         <h1>Food Environment and Census Analysis Web Map</h1>
         <nav>
             <ul>
-                <li><a href="#canfed">CanFed</a></li>
-                <li><a href="#demographics">Demographics</a></li>
-                <li><a href="#data-sources">Data Sources</a></li>
+                <li><a href="#canfed-pg.html">CanFed</a></li>
+                <li><a href="#demo-pg.html">Demographics</a></li>
+                <!-- <li><a href="#data-sources">Data Sources</a></li> -->
             </ul>
         </nav>
     </header>
@@ -26,23 +26,32 @@
         <div class="map-container">
             <section id="canfed">
                 <h2>CanFed Map</h2>
-                <div id="map1" class="map"></div>
-                <div id="legend1" class="legend">
-                    <h4>Legend</h4>
-                    <div><span style="background-color: #0073e6"></span>High Food Insecurity</div>
-                    <div><span style="background-color: #ffd700"></span>Low Food Insecurity</div>
+                <div class="map-description">
+                    <p>The Canadian Food Environment Dataset (Can-FED) analyzes the retail food environment in Canada. It includes data on 19 types of food outlets, such as grocery stores and fast-food restaurants, organized by dissemination areas (DA). Key metrics include the Modified Retail Food Environment Index (mRFEI) and Fast-Food Restaurant Mix (Rmix), which measure access to healthy food and the proportion of fast-food outlets, respectively.</p>
+                    <!-- <div><span style="background-color: #0073e6"></span>High Food Insecurity</div>
+                    <div><span style="background-color: #ffd700"></span>Low Food Insecurity</div> -->
                 </div>
+                <div id="map1" class="map"></div>
+                
             </section>
 
             <section id="demographics">
                 <h2>Demographics Map</h2>
+<<<<<<< Updated upstream
                 <div id="map2" class="map"></div>
                 <nav id="menu"></nav>
                 <div id="legend2" class="legend">
                     <h4>Legend</h4>
                     <div><span style="background-color: #0073e6"></span>High Population Density</div>
                     <div><span style="background-color: #ffd700"></span>Low Population Density</div>
+=======
+                <div class="map-description">
+                    <p>The 2021 Census provides demographic data on income, age, immigration status, and education. This data helps analyze the socio-economic landscape of Mississauga, highlighting how factors like income and education influence food access and health outcomes.</p>
+                    <!-- <div><span style="background-color: #0073e6"></span>High Population Density</div>
+                    <div><span style="background-color: #ffd700"></span>Low Population Density</div> -->
+>>>>>>> Stashed changes
                 </div>
+                <div id="map2" class="map"></div>
             </section>
         </div>
 
