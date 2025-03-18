@@ -103,6 +103,14 @@ footer {
     color: white; 
 }
 
+footer p {
+    color: white;
+}
+
+footer h2 {
+    color: rgba(255, 255, 255, 0.55);
+}
+
 #menu {
     background: #fff;
     position: absolute;
