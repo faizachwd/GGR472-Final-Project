@@ -278,7 +278,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
 // 2nd Map Navigation Controls
 map_dem.addControl(new mapboxgl.NavigationControl());
 
