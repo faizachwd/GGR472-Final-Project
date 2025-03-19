@@ -147,5 +147,5 @@ st_write(layer_age_data, "age.geojson")
 st_write(layer_mother_tongue, "mother_tongue.geojson")
 st_write(bus_stops, "bus_stops.geojson")
 st_write(DA_boundaries, "da_boundaries.geojson" )
-st_write(transit_buffer, "transift_buffers.geojson")
+st_write(transit_buffer, "transit_buffers.geojson")
 
