@@ -129,7 +129,7 @@ DA_boundaries <- combined_data %>% select(dauid, geometry) %>% st_sf()
 #creating buffers
 transit_buffer <- DA_boundaries
 transit_buffer <- st_centroid(transit_buffer)
-transit_buffer <- st_buffer(transit_buffer, dist = 1000)
+transit_buffer <- st_buffer(transit_buffer, dist = 100)
 
 
 #writing all layers to geojson
