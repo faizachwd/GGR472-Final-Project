@@ -168,6 +168,8 @@ map_dem.on('load', () => {
         },
     });
 
+    console.log('Mother Tongue layer added:', map_dem.getLayer('Mother Tongue')); // Debugging
+
     map_dem.addLayer({
         'id': 'Age',
         'type': 'fill',
@@ -189,62 +191,89 @@ map_dem.on('load', () => {
             ]
         },
     });
-});
 
+    console.log('Age layer added:', map_dem.getLayer('Age')); // Debugging
+
+    console.log('Layers added:', map_dem.getLayer('Age'), map_dem.getLayer('Mother Tongue')); // Debugging
+});
 
 
 //LAYERS, IGNORE FOR NOW
 
-map_dem.on('idle', () => {
-    // If these two layers were not added to the map, abort
-    if (!map_dem.getLayer('Age') || !map_dem.getLayer('Mother Tongue')) {
-        return;
-    }
+// map_dem.on('idle', () => {
+//     // If these two layers were not added to the map, abort
+//     if (!map_dem.getLayer('Age') || !map_dem.getLayer('Mother Tongue')) {
+//         return;
+//     }
 
-    // Enumerate ids of the layers.
-    const toggleableLayerIds = ['Age', 'Mother Tongue'];
+//     // Enumerate ids of the layers.
+//     const toggleableLayerIds = ['Age', 'Mother Tongue'];
 
-    // Set up the corresponding toggle button for each layer.
-    for (const id of toggleableLayerIds) {
-        // Skip layers that already have a button set up.
-        if (document.getElementById(id)) {
-            continue;
+//     // Set up the corresponding toggle button for each layer.
+//     for (const id of toggleableLayerIds) {
+//         // Skip layers that already have a button set up.
+//         if (document.getElementById(id)) {
+//             continue;
+//         }
+
+//         // Create a link.
+//         const link = document.createElement('a');
+//         link.id = id;
+//         link.href = '#';
+//         link.textContent = id;
+//         link.className = 'active';
+
+//         // Show or hide layer when the toggle is clicked.
+//         link.onclick = function (e) {
+//             const clickedLayer = this.textContent;
+//             e.preventDefault();
+//             e.stopPropagation();
+
+//             const visibility = map_dem.getLayoutProperty(
+//                 clickedLayer,
+//                 'visibility'
+//             );
+
+//             // Toggle layer visibility by changing the layout object's visibility property.
+//             if (visibility === 'visible') {
+//                 map_dem.setLayoutProperty(clickedLayer, 'visibility', 'none');
+//                 this.className = '';
+//             } else {
+//                 this.className = 'active';
+//                 map_dem.setLayoutProperty(
+//                     clickedLayer,
+//                     'visibility',
+//                     'visible'
+//                 );
+//             }
+//         };
+
+//         const layers = document.getElementById('menu');
+//         layers.appendChild(link);
+//     }
+// });
+
+// Wait for the DOM to fully load before running the script
+document.addEventListener('DOMContentLoaded', () => {
+    // Layer toggle functionality for static buttons
+    document.getElementById('toggle-age').addEventListener('click', function () {
+        toggleLayer('Age', this);
+    });
+
+    document.getElementById('toggle-mother-tongue').addEventListener('click', function () {
+        toggleLayer('Mother Tongue', this);
+    });
+
+    function toggleLayer(layerId, button) {
+        const visibility = map_dem.getLayoutProperty(layerId, 'visibility');
+
+        if (visibility === 'visible') {
+            map_dem.setLayoutProperty(layerId, 'visibility', 'none');
+            button.classList.remove('active');
+        } else {
+            map_dem.setLayoutProperty(layerId, 'visibility', 'visible');
+            button.classList.add('active');
         }
-
-        // Create a link.
-        const link = document.createElement('a');
-        link.id = id;
-        link.href = '#';
-        link.textContent = id;
-        link.className = 'active';
-
-        // Show or hide layer when the toggle is clicked.
-        link.onclick = function (e) {
-            const clickedLayer = this.textContent;
-            e.preventDefault();
-            e.stopPropagation();
-
-            const visibility = map_dem.getLayoutProperty(
-                clickedLayer,
-                'visibility'
-            );
-
-            // Toggle layer visibility by changing the layout object's visibility property.
-            if (visibility === 'visible') {
-                map_dem.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                this.className = '';
-            } else {
-                this.className = 'active';
-                map_dem.setLayoutProperty(
-                    clickedLayer,
-                    'visibility',
-                    'visible'
-                );
-            }
-        };
-
-        const layers = document.getElementById('menu');
-        layers.appendChild(link);
     }
 });
 

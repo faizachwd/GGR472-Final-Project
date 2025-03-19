@@ -163,6 +163,11 @@ footer a:hover {
     color: #0073e6; /* Blue color on hover */
 }
 
+/* .map-controls {
+    position: relative; 
+    margin-top: 10px; 
+}
+
 #menu {
     background: #fff;
     position: absolute;
@@ -203,4 +208,35 @@ footer a:hover {
 
 #menu a.active:hover {
     background: #3074a4;
+} */
+
+/* Layer controls styling */
+.layer-controls {
+    margin-top: 10px; /* Add spacing between the map and buttons */
+    text-align: center; /* Center the buttons */
+}
+
+.layer-controls button {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.layer-controls button:hover {
+    background-color: #f8f8f8;
+}
+
+.layer-controls button.active {
+    background-color: #3887be;
+    color: #fff;
+    border-color: #3887be;
+}
+
+.layer-controls button.active:hover {
+    background-color: #3074a4;
 }
