@@ -125,12 +125,17 @@ layer_can_fed <- combined_data %>% select(mRFEI_cat_ON, dauid, geometry) %>% st_
 
 DA_boundaries <- combined_data %>% select(dauid, geometry) %>% st_sf()
 
+transit_buffer <- DA_boundaries
+transit_buffer <- st_centroid(transit_buffer)
+transit_buffer <- st_buffer(transit_buffer, dist = 100)
+
 #writing all layers to geojson
 layer_can_fed <- st_transform(layer_can_fed, crs = 4326)
 layer_age_data <- st_transform(layer_age_data, crs = 4326)
 layer_mother_tongue <- st_transform(layer_mother_tongue, crs = 4326)
 bus_stops <- st_transform(bus_stops, crs = 4326)
 DA_boundaries <- st_transform(DA_boundaries, crs = 4326)
+transit_buffer <- st_transform(transit_buffer, crs=4326)
 
 
 
@@ -138,6 +143,7 @@ st_write(layer_can_fed, "can_fed.geojson")
 st_write(layer_age_data, "age.geojson")
 st_write(layer_mother_tongue, "mother_tongue.geojson")
 st_write(bus_stops, "bus_stops.geojson")
-st_write(DA_boundaries, "da_boundaries.geojson" )
+st_write(DA_boundaries, "da_boundaries.geojson")
+st_write(transit_buffer, "transit_buffer.geojson")
 
 
