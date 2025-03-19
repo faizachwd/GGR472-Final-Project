@@ -106,6 +106,7 @@ map_dem.on('load', () => {
         'id': 'Transit',
         'type': 'fill',
         'source': 'buffers',  // Source ID for the buffer layer
+        'layout': { 'visibility': 'none'},
         'paint': {
             'fill-color': 'rgba(0, 0, 255, 0.5)',  // Buffer color (blue with transparency)
             'fill-opacity': 0.4
