@@ -103,7 +103,7 @@ map_dem.on('load', () => {
     });
 
     map_dem.addLayer({
-        'id': 'Transit Buffer (500m)',
+        'id': 'Transit',
         'type': 'fill',
         'source': 'buffers',  // Source ID for the buffer layer
         'paint': {
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('toggle-transit').addEventListener('click', function () {
-        toggleLayer('Transit Buffer (500m)', this);
+        toggleLayer('Transit', this);
     });
 
     function toggleLayer(layerId, button) {
