@@ -55,7 +55,7 @@ map_dem.on('load', () => {
 
     map_dem.addSource('buffers', {
         type: 'geojson',
-        data: "https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/transit_buffer.geojson"
+        data: "https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/website/transit_buffer.geojson"
     });
 
     map_dem.addSource('age', {
@@ -103,7 +103,7 @@ map_dem.on('load', () => {
     });
 
     map_dem.addLayer({
-        'id': 'Transit Buffer (1km)',
+        'id': 'Transit Buffer (500m)',
         'type': 'fill',
         'source': 'buffers',  // Source ID for the buffer layer
         'paint': {
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('toggle-transit').addEventListener('click', function () {
-        toggleLayer('Transit Buffer (1km)', this);
+        toggleLayer('Transit Buffer (500m)', this);
     });
 
     function toggleLayer(layerId, button) {
