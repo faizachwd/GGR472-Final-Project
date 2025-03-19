@@ -51,59 +51,12 @@ const map_dem = new mapboxgl.Map({
     zoom: 10
 });
 
-fetch("https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/bus_stops.geojson")
-    .then(response => response.json())
-    .then(response => {
-        bus_stops = response; // Store geojson as variable using URL from fetch response
-    })
-
-
-// fetch("https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/da_boundaries.geojson")
-//     .then(response => response.json())
-//     .then(data => {
-//         // Generate buffers while preserving dauid
-//         const bufferGeoJSON = {
-//             type: "FeatureCollection",
-//             features: data.features.map(feature => {
-//                 const centroid = turf.centroid(feature); // Create centroid
-//                 const buffer = turf.buffer(centroid, 2000, { units: 'meters' }); // Create buffer
-
-//                 return {
-//                     type: "Feature",
-//                     geometry: buffer.geometry, // Store only the buffer geometry
-//                     properties: {
-//                         dauid: feature.properties.dauid // Preserve dauid property
-//                     }
-//                 };
-//             })
-//         };
-//         // Add buffer data as a new source in Mapbox
-//         map_dem.addSource("bufferLayer", {
-//             type: "geojson",
-//             data: bufferGeoJSON
-//         });
-
-//         // Add the buffer layer to visualize it
-//         map_dem.addLayer({
-//             id: "bufferLayer",
-//             type: "fill",
-//             source: "bufferLayer",
-//             paint: {
-//                 "fill-color": "blue",
-//                 "fill-opacity": 0.5
-//             }
-//         });
-
-//     });
-
-
-
 map_dem.on('load', () => {
 
-    // map_dem.addSource('buffers', {
-    //     type: 'geojson',
-    //     data: bufferGeoJSON
-    // });
+    map_dem.addSource('buffers', {
+        type: 'geojson',
+        data: "https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/transit_buffer.geojson"
+    });
 
     map_dem.addSource('age', {
         type: 'geojson',
@@ -115,39 +68,51 @@ map_dem.on('load', () => {
         data: "https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/mother_tongue.geojson"
     });
 
-    // map_dem.addSource('da_boundaries', {
-    //     type: 'geojson',
-    //     data: da_boundaries
-    // });
+    map_dem.addSource('da_boundaries', {
+        type: 'geojson',
+        data: "https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/da_boundaries.geojson"
+    });
 
     map_dem.addSource('bus_stops', {
         type: 'geojson',
-        data: bus_stops
+        data: "https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/bus_stops.geojson"
     });
 
-    // map_dem.addLayer({
-    //     'id': 'buffers',
-    //     'type': 'fill',
-    //     'source': 'buffers',  // Source ID for the buffer layer
-    //     'paint': {
-    //         'fill-color': 'rgba(0, 0, 255, 0.5)',  // Buffer color (blue with transparency)
-    //         'fill-opacity': 0.5
-    //     },
-    //     'filter': ['==', '$type', 'Polygon']
-    // });
-
-
+    map_dem.addLayer({
+        'id': 'da',
+        'type': 'fill',
+        'source': 'da_boundaries',  
+        'paint': {
+            'fill-color': 'rgba(255, 255, 255, 0.5)',  
+            'fill-opacity': 1,
+            'fill-outline-color': 'black'
+        },
+        'layout': { 'visibility': 'visible'},
+    });
+    
     map_dem.addLayer({
         'id': 'bus',
         'type': 'circle',
         'source': 'bus_stops',
-        'layout': { 'visibility': 'visible' },
+        'layout': { 'visibility': 'visible'},
         'paint': {
             'circle-opacity': 0.2,
             'circle-stroke-color': 'black',
-            'circle-radius': 3
+            'circle-radius': 2
         },
     });
+
+    map_dem.addLayer({
+        'id': 'Transit Buffer (1km)',
+        'type': 'fill',
+        'source': 'buffers',  // Source ID for the buffer layer
+        'paint': {
+            'fill-color': 'rgba(0, 0, 255, 0.5)',  // Buffer color (blue with transparency)
+            'fill-opacity': 0.4
+        },
+        'layout': { 'visibility': 'visible'},
+    });
+
 
     map_dem.addLayer({
         'id': 'Mother Tongue',
@@ -168,13 +133,11 @@ map_dem.on('load', () => {
         },
     });
 
-    console.log('Mother Tongue layer added:', map_dem.getLayer('Mother Tongue')); // Debugging
-
     map_dem.addLayer({
         'id': 'Age',
         'type': 'fill',
         'source': 'age',
-        'layout': { 'visibility': 'visible' },
+        'layout': { 'visibility': 'none' },
         'paint': {
             'fill-outline-color': 'black',
             'fill-color': [
@@ -191,67 +154,8 @@ map_dem.on('load', () => {
             ]
         },
     });
-
-    console.log('Age layer added:', map_dem.getLayer('Age')); // Debugging
-
-    console.log('Layers added:', map_dem.getLayer('Age'), map_dem.getLayer('Mother Tongue')); // Debugging
 });
 
-
-//LAYERS, IGNORE FOR NOW
-
-// map_dem.on('idle', () => {
-//     // If these two layers were not added to the map, abort
-//     if (!map_dem.getLayer('Age') || !map_dem.getLayer('Mother Tongue')) {
-//         return;
-//     }
-
-//     // Enumerate ids of the layers.
-//     const toggleableLayerIds = ['Age', 'Mother Tongue'];
-
-//     // Set up the corresponding toggle button for each layer.
-//     for (const id of toggleableLayerIds) {
-//         // Skip layers that already have a button set up.
-//         if (document.getElementById(id)) {
-//             continue;
-//         }
-
-//         // Create a link.
-//         const link = document.createElement('a');
-//         link.id = id;
-//         link.href = '#';
-//         link.textContent = id;
-//         link.className = 'active';
-
-//         // Show or hide layer when the toggle is clicked.
-//         link.onclick = function (e) {
-//             const clickedLayer = this.textContent;
-//             e.preventDefault();
-//             e.stopPropagation();
-
-//             const visibility = map_dem.getLayoutProperty(
-//                 clickedLayer,
-//                 'visibility'
-//             );
-
-//             // Toggle layer visibility by changing the layout object's visibility property.
-//             if (visibility === 'visible') {
-//                 map_dem.setLayoutProperty(clickedLayer, 'visibility', 'none');
-//                 this.className = '';
-//             } else {
-//                 this.className = 'active';
-//                 map_dem.setLayoutProperty(
-//                     clickedLayer,
-//                     'visibility',
-//                     'visible'
-//                 );
-//             }
-//         };
-
-//         const layers = document.getElementById('menu');
-//         layers.appendChild(link);
-//     }
-// });
 
 // Wait for the DOM to fully load before running the script
 document.addEventListener('DOMContentLoaded', () => {
@@ -265,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('toggle-transit').addEventListener('click', function () {
-        toggleLayer('Transit', this);
+        toggleLayer('Transit Buffer (1km)', this);
     });
 
     function toggleLayer(layerId, button) {
