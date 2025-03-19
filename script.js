@@ -264,6 +264,10 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleLayer('Mother Tongue', this);
     });
 
+    document.getElementById('toggle-transit').addEventListener('click', function () {
+        toggleLayer('Transit', this);
+    });
+
     function toggleLayer(layerId, button) {
         const visibility = map_dem.getLayoutProperty(layerId, 'visibility');
 
