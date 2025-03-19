@@ -5,52 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Environment and Census Analysis</title>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
 </head>
 <body>
+
     <header>
         <h1>Food Environment and Census Analysis Web Map</h1>
         <nav>
             <ul>
-                <li><a href="#canfed">CanFed</a></li>
-                <li><a href="#demographics">Demographics</a></li>
-                <li><a href="#data-sources">Data Sources</a></li>
+                <li><a href="https://www150.statcan.gc.ca/n1/pub/13-20-0001/132000012022001-eng.htm" target = "_blank">CanFed</a></li>
+                <li><a href="https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E&HPA=1" target = "_blank">Demographics</a></li>
+                <!-- <li><a href="#data-sources">Data Sources</a></li> -->
             </ul>
         </nav>
     </header>
+
+    <section class="objectives">
+        <h2>Objectives</h2>
+        <p>In a recent Statistics Canada report, a staggering population of 54,000 households were
+            identified as food insecure due to financial constraints that limited their ability to purchase nutritious
+            meals (Tarasuk et al., 2021). Our web map aims to understand the barriers that residents face when trying to access
+            food locally across the city of Mississauga. With our partners at Nucleus Independent Living, our goal is
+            to design an interactive map that will help users identify hotspots and better understand access
+            to healthy food options among specific neighbourhoods and communities in Mississauga, Ontario. We hope community engagement and non-profit organizations can
+            reference this map to help create better solutions to tackle food insecurity and use it in their
+            social programming.</p>
+    </section>
 
     <main>
         <div class="map-container">
             <section id="canfed">
                 <h2>CanFed Map</h2>
-                <div id="map1" class="map"></div>
-                <div id="legend1" class="legend">
-                    <h4>Legend</h4>
-                    <div><span style="background-color: #0073e6"></span>High Food Insecurity</div>
-                    <div><span style="background-color: #ffd700"></span>Low Food Insecurity</div>
+                <div class="map-description">
+                    <p>The Canadian Food Environment Dataset (Can-FED) analyzes the retail food environment in Canada. It includes data on 19 types of food outlets, such as grocery stores and fast-food restaurants, organized by dissemination areas (DA). Key metrics include the Modified Retail Food Environment Index (mRFEI) and Fast-Food Restaurant Mix (Rmix), which measure access to healthy food and the proportion of fast-food outlets, respectively.</p>
+                    <!-- <div><span style="background-color: #0073e6"></span>High Food Insecurity</div>
+                    <div><span style="background-color: #ffd700"></span>Low Food Insecurity</div> -->
                 </div>
+                <div id="map1" class="map"></div>
+                
             </section>
 
             <section id="demographics">
                 <h2>Demographics Map</h2>
-                <div id="map2" class="map"></div>
-                <div id="legend2" class="legend">
-                    <h4>Legend</h4>
-                    <div><span style="background-color: #0073e6"></span>High Population Density</div>
-                    <div><span style="background-color: #ffd700"></span>Low Population Density</div>
+                <div class="map-description">
+                    <p>The 2021 Census provides demographic data on income, age, immigration status, and education. This data helps analyze the socio-economic landscape of Mississauga, highlighting how factors like income and education influence food access and health outcomes.</p>
+                    <!-- <div><span style="background-color: #0073e6"></span>High Population Density</div>
+                    <div><span style="background-color: #ffd700"></span>Low Population Density</div> -->
                 </div>
+                <div id="map2" class="map"></div>
             </section>
         </div>
+
     </main>
 
     <footer>
-        <section id="data-sources">
-            <h2>Data Sources</h2>
-            <p>Add links.</p>
+        <section id="footer">
+            <h2>Contact</h2>
+            <p>For more information, visit <a href="https://artsci.calendar.utoronto.ca/course/ggr472h1" target="_blank">University of Toronto GGR472: Developing Web Maps</a> and <a href="https://www.nucleusonline.ca/" target="_blank">Nucleus Independent Living</a>.</p>
         </section>
     </footer>
 
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-    <script src="scripts.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
