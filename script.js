@@ -96,7 +96,7 @@ map_dem.on('load', () => {
         'source': 'bus_stops',
         'layout': { 'visibility': 'visible'},
         'paint': {
-            'circle-opacity': 0.2,
+            'circle-opacity': 1,
             'circle-stroke-color': 'black',
             'circle-radius': 2
         },
