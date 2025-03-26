@@ -111,7 +111,7 @@ map_dem.on('load', () => {
             'fill-color': 'rgba(0, 0, 255, 0.5)',  // Buffer color (blue with transparency)
             'fill-opacity': 0.4
         },
-        'layout': { 'visibility': 'visible'},
+        'layout': { 'visibility': 'none'},
     });
 
 
