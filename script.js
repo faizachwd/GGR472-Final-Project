@@ -38,10 +38,10 @@ map_can_fed.on('load', () => {
 });
 
 // 1st Map Pop-Up
-map.on('click', 'can_fed_da', (e) => {
 new mapboxgl.Marker()
     .setLngLat([-79.640579, 43.595310])
     .setPopup(new mapboxgl.Popup().setHTML('<p>Mississauga: High Food Insecurity</p>'))
+    map.on('click', 'can_fed_da', (e) => {
     .addTo(map_can_fed);
 
 // Initialize the second map (Demographics Map)
@@ -192,10 +192,11 @@ document.addEventListener('DOMContentLoaded', () => {
 map_dem.addControl(new mapboxgl.NavigationControl());
 
 // 2nd Map Pop-Up
-    map.on('click', 'da', 'Mother Tongue' ,'%' 'Age', (e) => {
+
 new mapboxgl.Marker()
     .setLngLat([-79.640579, 43.595310])
     .setPopup(new mapboxgl.Popup().setHTML('<p>Mississauga: High Population Density</p>'))
+     map.on('click', 'da', 'Mother Tongue' ,'%' 'Age', (e) => {
     .addTo(map_dem);
 
 
