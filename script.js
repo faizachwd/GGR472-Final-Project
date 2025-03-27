@@ -38,10 +38,13 @@ map_can_fed.on('load', () => {
 });
 
 // 1st Map Pop-Up
-new mapboxgl.Marker()
-    .setLngLat([-79.640579, 43.595310])
-    .setPopup(new mapboxgl.Popup().setHTML('<p>Mississauga: High Food Insecurity</p>'))
+map_can_fed.on('click', 'can_fed_da', (e) => {
+    new mapboxgl.Popup()
+    .setLngLat(e.lngLat)
+    .setHTML('<p>DA: </p>' + e.features[0].properties.dauid + "<br>" + '<p>mRFEI: </p>' + e.features.properties[0].mRFEI_cat_ON)
     .addTo(map_can_fed);
+ });
+ 
 
 // Initialize the second map (Demographics Map)
 const map_dem = new mapboxgl.Map({
@@ -55,7 +58,7 @@ map_dem.on('load', () => {
 
     map_dem.addSource('buffers', {
         type: 'geojson',
-        data: "https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/transit_buffer.geojson"
+        data: "https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/website/transit_buffer.geojson"
     });
 
     map_dem.addSource('age', {
@@ -96,21 +99,22 @@ map_dem.on('load', () => {
         'source': 'bus_stops',
         'layout': { 'visibility': 'visible'},
         'paint': {
-            'circle-opacity': 0.2,
+            'circle-opacity': 1,
             'circle-stroke-color': 'black',
             'circle-radius': 2
         },
     });
 
     map_dem.addLayer({
-        'id': 'Transit Buffer (1km)',
+        'id': 'Transit',
         'type': 'fill',
         'source': 'buffers',  // Source ID for the buffer layer
+        'layout': { 'visibility': 'none'},
         'paint': {
             'fill-color': 'rgba(0, 0, 255, 0.5)',  // Buffer color (blue with transparency)
             'fill-opacity': 0.4
         },
-        'layout': { 'visibility': 'visible'},
+        'layout': { 'visibility': 'none'},
     });
 
 
@@ -169,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('toggle-transit').addEventListener('click', function () {
-        toggleLayer('Transit Buffer (1km)', this);
+        toggleLayer('Transit', this);
     });
 
     function toggleLayer(layerId, button) {
@@ -188,12 +192,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 2nd Map Navigation Controls
 map_dem.addControl(new mapboxgl.NavigationControl());
-
-// 2nd Map Pop-Up
-new mapboxgl.Marker()
-    .setLngLat([-79.640579, 43.595310])
-    .setPopup(new mapboxgl.Popup().setHTML('<p>Mississauga: High Population Density</p>'))
-    .addTo(map_dem);
-
-
-
