@@ -193,13 +193,3 @@ document.addEventListener('DOMContentLoaded', () => {
 // 2nd Map Navigation Controls
 map_dem.addControl(new mapboxgl.NavigationControl());
 
-// 2nd Map Pop-Up
-
-new mapboxgl.Marker()
-    .setLngLat([-79.640579, 43.595310])
-    .setPopup(new mapboxgl.Popup().setHTML('<p>Mississauga: High Population Density</p>'))
-     map.on('click', 'da', 'Mother Tongue' ,'%' 'Age', (e) => {
-    .addTo(map_dem);
-
-
-
