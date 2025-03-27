@@ -38,6 +38,7 @@ map_can_fed.on('load', () => {
 });
 
 // 1st Map Pop-Up
+map.on('click', 'can_fed', (e) => {
 new mapboxgl.Marker()
     .setLngLat([-79.640579, 43.595310])
     .setPopup(new mapboxgl.Popup().setHTML('<p>Mississauga: High Food Insecurity</p>'))
