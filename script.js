@@ -83,12 +83,11 @@ map_dem.on('load', () => {
 
     map_dem.addLayer({
         'id': 'da',
-        'type': 'fill',
+        'type': 'line',
         'source': 'da_boundaries',
         'paint': {
-            'fill-color': 'rgba(255, 255, 255, 0.5)',
-            'fill-opacity': 1,
-            'fill-outline-color': 'black'
+            'line-color': 'rgb(32, 33, 32)',
+            'line-width': 1.3
         },
         'layout': { 'visibility': 'visible' },
     });
@@ -99,8 +98,10 @@ map_dem.on('load', () => {
         'source': 'bus_stops',
         'layout': { 'visibility': 'visible' },
         'paint': {
-            'circle-opacity': 1,
-            'circle-stroke-color': 'black',
+            'circle-opacity': 0.8,
+            'circle-color': '#ffbe0b',
+            'circle-stroke-color': 'rgb(0, 0, 0)',
+            'circle-stroke-width': 0.1,
             'circle-radius': 2
         },
     });
@@ -111,9 +112,10 @@ map_dem.on('load', () => {
         'source': 'buffers',  // Source ID for the buffer layer
         'layout': { 'visibility': 'none' },
         'paint': {
-            'fill-color': 'rgba(0, 0, 255, 0.5)',  // Buffer color (blue with transparency)
-            'fill-opacity': 0.4
-        },
+            'fill-color': '#b298dc',  // Buffer color
+            'fill-opacity': 0.3,
+            'fill-outline-color': 'black',
+                },
         'layout': { 'visibility': 'none' },
     });
 
