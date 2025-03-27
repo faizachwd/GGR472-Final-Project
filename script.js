@@ -38,13 +38,13 @@ map_can_fed.on('load', () => {
 });
 
 // 1st Map Pop-Up
+
 map_can_fed.on('click', 'can_fed_da', (e) => {
     new mapboxgl.Popup()
-    .setLngLat(e.lngLat)
-    .setHTML('<p>DA: </p>' + e.features[0].properties.dauid + "<br>" + '<p>mRFEI: </p>' + e.features.properties[0].mRFEI_cat_ON)
-    .addTo(map_can_fed);
- });
- 
+        .setLngLat(e.lngLat)
+        .setHTML("<b>DA: </b>" + e.features[0].properties['dauid'] + "<br>" + '<b>mRFEI: </b>' + e.features[0].properties['mRFEI_cat_ON'])
+        .addTo(map_can_fed);
+});
 
 // Initialize the second map (Demographics Map)
 const map_dem = new mapboxgl.Map({
@@ -84,20 +84,20 @@ map_dem.on('load', () => {
     map_dem.addLayer({
         'id': 'da',
         'type': 'fill',
-        'source': 'da_boundaries',  
+        'source': 'da_boundaries',
         'paint': {
-            'fill-color': 'rgba(255, 255, 255, 0.5)',  
+            'fill-color': 'rgba(255, 255, 255, 0.5)',
             'fill-opacity': 1,
             'fill-outline-color': 'black'
         },
-        'layout': { 'visibility': 'visible'},
+        'layout': { 'visibility': 'visible' },
     });
-    
+
     map_dem.addLayer({
         'id': 'bus',
         'type': 'circle',
         'source': 'bus_stops',
-        'layout': { 'visibility': 'visible'},
+        'layout': { 'visibility': 'visible' },
         'paint': {
             'circle-opacity': 1,
             'circle-stroke-color': 'black',
@@ -109,12 +109,12 @@ map_dem.on('load', () => {
         'id': 'Transit',
         'type': 'fill',
         'source': 'buffers',  // Source ID for the buffer layer
-        'layout': { 'visibility': 'none'},
+        'layout': { 'visibility': 'none' },
         'paint': {
             'fill-color': 'rgba(0, 0, 255, 0.5)',  // Buffer color (blue with transparency)
             'fill-opacity': 0.4
         },
-        'layout': { 'visibility': 'none'},
+        'layout': { 'visibility': 'none' },
     });
 
 
@@ -192,3 +192,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 2nd Map Navigation Controls
 map_dem.addControl(new mapboxgl.NavigationControl());
+
+map_dem.on('click', 'Age', (e) => {
+    console.log(e.features[0].properties['GEO_NAME'])
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML("<b>DA: </b>" + e.features[0].properties['GEO_NAME'] + "<br>" 
+            + '<b>Population Above 65 (%): </b>' + e.features[0].properties['Population above 65 (%)'] + "<br>" 
+            + '<b>Average Age: </b>' + e.features[0].properties['Average age'] )
+        .addTo(map_dem);
+});
+
+map_dem.on('click', 'Mother Tongue', (e) => {
+    console.log(e.features[0].properties)
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML("<b>DA: </b>" + e.features[0].properties['GEO_NAME'] + "<br>" + 
+            '<b>Residents that speak a non official language as a first language (%): </b>' + 
+            e.features[0].properties['Residents that who speak a non official language as a first language (%):'].toFixed(2))
+        .addTo(map_dem);
+});
+
+syncMaps(map_can_fed, map_dem)

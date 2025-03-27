@@ -240,3 +240,7 @@ footer a:hover {
 .layer-controls button.active:hover {
     background-color: #3074a4;
 }
+
+.mapboxgl-popup-content {
+    color: black; /* Change to your desired color */
+}
