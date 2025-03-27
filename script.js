@@ -38,12 +38,13 @@ map_can_fed.on('load', () => {
 });
 
 // 1st Map Pop-Up
-new mapboxgl.Marker()
-    .setLngLat([-79.640579, 43.595310])
-    .setPopup(new mapboxgl.Popup().setHTML('<p>Mississauga: High Food Insecurity</p>'))
+map_can_fed.on('click', 'can_fed_da', (e) => {
+    new mapboxgl.Popup()
+    .setLngLat(e.lngLat)
+    .setHTML('<p>DA: </p>' + e.features[0].properties.dauid + "<br>" + '<p>mRFEI: </p>' + e.features.properties[0].mRFEI_cat_ON)
     .addTo(map_can_fed);
- map.on('click', 'can_fed_da', (e) => {
  });
+ 
 
 // Initialize the second map (Demographics Map)
 const map_dem = new mapboxgl.Map({
