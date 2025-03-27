@@ -41,8 +41,9 @@ map_can_fed.on('load', () => {
 new mapboxgl.Marker()
     .setLngLat([-79.640579, 43.595310])
     .setPopup(new mapboxgl.Popup().setHTML('<p>Mississauga: High Food Insecurity</p>'))
-    map.on('click', 'can_fed_da', (e) => {
     .addTo(map_can_fed);
+ map.on('click', 'can_fed_da', (e) => {
+ });
 
 // Initialize the second map (Demographics Map)
 const map_dem = new mapboxgl.Map({
