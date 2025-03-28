@@ -6,7 +6,7 @@ const map_can_fed = new mapboxgl.Map({
     container: "map1",
     style: 'mapbox://styles/faiza132/cm72f283a007a01quayc2g04v',
     center: [-79.640579, 43.595310], // Location [lon, lat] (Mississauga)
-    zoom: 12
+    zoom: 10
 });
 
 // 1st Map Navigation Controls
@@ -216,3 +216,7 @@ map_dem.on('click', 'Mother Tongue', (e) => {
 });
 
 syncMaps(map_can_fed, map_dem)
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+// LEGENDS
