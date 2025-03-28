@@ -106,32 +106,6 @@ nav ul li a:hover {
     margin: 0;
 }
 
-/* .legend {
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.legend h4 {
-    margin: 0 0 10px;
-    font-size: 16px;
-    color: #333; 
-}
-
-.legend div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.legend span {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    display: inline-block;
-    border-radius: 4px; /* Rounded corners for color indicators */
-} */
 
 section {
     padding: 20px;
@@ -173,6 +147,7 @@ footer a {
 footer a:hover {
     color: #0073e6; /* Blue color on hover */
 }
+
 
 /* Layer controls styling */
 .layer-controls {
@@ -221,6 +196,37 @@ footer a:hover {
     flex-direction: column; /* This makes items stack vertically */
 }
 
+/* Old code may need to remove some */
+
+.legend {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.legend h4 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: #333; 
+}
+
+.legend div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.legend span {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    display: inline-block;
+    border-radius: 4px; /* Rounded corners for color indicators */
+}
+
+/* New legend, check with old one */
+
 .legend-container {
     display: flex;
     gap: 20px;
@@ -263,5 +269,4 @@ footer a:hover {
 .canfed-legend {
     margin-top: 10%;
 }
-
 
