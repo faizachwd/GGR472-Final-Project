@@ -42,7 +42,7 @@ map_can_fed.on('load', () => {
 map_can_fed.on('click', 'can_fed_da', (e) => {
     new mapboxgl.Popup()
         .setLngLat(e.lngLat)
-        .setHTML("<b>DA: </b>" + e.features[0].properties['dauid'] + "<br>" + '<b>mRFEI: </b>' + e.features[0].properties['mRFEI_cat_ON'])
+        .setHTML("<b>DA ID: </b>" + e.features[0].properties['dauid'] + "<br>" + '<b>mRFEI: </b>' + e.features[0].properties['mRFEI_cat_ON'])
         .addTo(map_can_fed);
 });
 
@@ -259,7 +259,7 @@ map_dem.on('click', 'Age', (e) => {
     console.log(e.features[0].properties['GEO_NAME'])
     new mapboxgl.Popup()
         .setLngLat(e.lngLat)
-        .setHTML("<b>DA: </b>" + e.features[0].properties['GEO_NAME'] + "<br>"
+        .setHTML("<b>DA ID: </b>" + e.features[0].properties['GEO_NAME'] + "<br>"
             + '<b>Population Above 65 (%): </b>' + e.features[0].properties['Population above 65 (%)'] + "<br>"
             + '<b>Average Age: </b>' + e.features[0].properties['Average age'])
         .addTo(map_dem);
@@ -269,7 +269,7 @@ map_dem.on('click', 'Mother Tongue', (e) => {
     console.log(e.features[0].properties)
     new mapboxgl.Popup()
         .setLngLat(e.lngLat)
-        .setHTML("<b>DA: </b>" + e.features[0].properties['GEO_NAME'] + "<br>" +
+        .setHTML("<b>DA ID: </b>" + e.features[0].properties['GEO_NAME'] + "<br>" +
             '<b>Residents that speak a non official language as a first language (%): </b>' +
             e.features[0].properties['Residents that who speak a non official language as a first language (%):'].toFixed(2))
         .addTo(map_dem);

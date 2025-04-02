@@ -13,7 +13,7 @@
 <body>
 
     <header>
-        <h1>Food Environment and Census Analysis Web Map</h1>
+        <h1>Retails Food Access in Mississauga: A Web Map</h1>
         <nav>
             <ul>
                 <li><a href="https://www150.statcan.gc.ca/n1/pub/13-20-0001/132000012022001-eng.htm" target = "_blank">CanFed</a></li>
@@ -40,7 +40,10 @@
             <section id="canfed">
                 <h2>CanFed Map</h2>
                 <div class="map-description">
-                    <p>The Canadian Food Environment Dataset (Can-FED) analyzes the retail food environment in Canada. It includes data on 19 types of food outlets, such as grocery stores and fast-food restaurants, organized by dissemination areas (DA). This map visualizes the Modified Retail Food Environment Index (mRFEI) which measures the proportion of healthy food outlets within a 3km buffer of each DA. Each DA is assigned a density score on a scale of 1-4, 4 representing the high density score.</p>
+                    <p>The Canadian Food Environment Dataset (Can-FED) analyzes the retail food environment in Canada. 
+                        It includes data on 19 types of food outlets, such as grocery stores and fast-food restaurants, organized by dissemination areas (DA). 
+                        This map visualizes the Modified Retail Food Environment Index (mRFEI) which measures the proportion of healthy food outlets within a 3km buffer of each DA. 
+                        The mRFEI density of the DA's are grouped and ranked on a scale of 1-4, 4 representing DA's with the highest densities of healthy food outlets.</p>
                 </div>
                 <div id="map1" class="map"></div>
                 <div class="legend" class="canfed-legend">
@@ -55,14 +58,18 @@
             <section id="demographics">
                 <h2>Demographics Map</h2>
                 <div class="map-description">
-                    <p>The 2016 Census provides limited demographic data at the DA level. This map visualizes age, and mother tongue (which is used a proxy to measure ethno-cultural diversity in a DA). This data helps analyze the socio-economic landscape of Mississauga, highlighting how these factors relate to food access. To highlight access to transit in each DA we have also included locations of all the MiWay bus stops and created 500m buffers from the centroid of each DA, highlighting the concentration of bus stops nearby.</p>
+                    <p>The 2016 Census provides limited demographic data at the DA level. 
+                        This map visualizes age, and mother tongue (which is used a proxy to measure ethno-cultural diversity in a DA).
+                        This data helps analyze the socio-economic landscape of Mississauga, highlighting how these factors relate to food access. 
+                        To highlight access to transit in each DA we have also included locations of all the MiWay bus stops and 
+                        created a hex map displaying the concentration of bus stops. </p>
                 </div>
                 <div id="map2" class="map"></div>
                 <!-- Static buttons for layer toggles -->
                 <div class="layer-controls">
                     <button id="toggle-age">Age</button>
                     <button id="toggle-mother-tongue">Mother Tongue</button>
-                    <button id="toggle-transit">Transit Buffer (500m)</button>
+                    <button id="toggle-transit">Transit Density</button>
                 </div>
                 <!-- Legend -->
                 <div class="legend-container" class="demographic-legend">
