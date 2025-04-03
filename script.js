@@ -17,7 +17,8 @@ map_can_fed.on('load', () => {
         type: 'geojson',
         data: "https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/can_fed.geojson"
     });
-    //Layer with symbology
+
+    //can fed layer
     map_can_fed.addLayer({
         'id': 'can_fed_da',
         'type': 'fill',
@@ -26,8 +27,8 @@ map_can_fed.on('load', () => {
             'fill-outline-color': 'black',
             'fill-color': [
                 'step',
-                ['get', 'mRFEI_cat_ON'], // Property you want to use for coloring
-                '#B3C3D1', // Default color for values < first step
+                ['get', 'mRFEI_cat_ON'],
+                '#B3C3D1', // Default color for values <1 but there should be no values
                 1.0, '#EE6055', // Values >= 1 
                 2.0, '#D59967', // Values >= 2 
                 3.0, '#C8B570', // Values >= 3 
@@ -38,7 +39,6 @@ map_can_fed.on('load', () => {
 });
 
 // 1st Map Pop-Up
-
 map_can_fed.on('click', 'can_fed_da', (e) => {
     new mapboxgl.Popup()
         .setLngLat(e.lngLat)
@@ -56,6 +56,7 @@ const map_dem = new mapboxgl.Map({
 
 fetch('https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/bus_stops.geojson')
 
+// creating map event inside fetch so that all data has loaded before the map begins
     .then(response => response.json())
     .then(response => {
 
@@ -66,7 +67,6 @@ fetch('https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/hea
             let bbox = turf.transformScale(evnresult, 1.1);
 
             // accessing and store the bounding box coordinates as an array variable
-
             let bbox_coords = [
                 bbox.geometry.coordinates[0][0][0],
                 bbox.geometry.coordinates[0][0][1],
@@ -76,8 +76,7 @@ fetch('https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/hea
 
             let hexdata = turf.hexGrid(bbox_coords, 0.5, { units: "kilometers" });
 
-            //creating hexagons and collecting how many collisons per hexagon
-
+            //creating hexagons and collecting how many bus stops per hexagon
             let bushex = turf.collect(hexdata, bus_data, 'Stop_Numbe', 'values');
 
             bushex.features.forEach((feature) => {
@@ -109,18 +108,7 @@ fetch('https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/hea
                 data: "https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/heads/main/bus_stops.geojson"
             });
 
-            map_dem.addLayer({
-                'id': 'hexline',
-                'type': 'line',
-                'source': 'hexgrid',
-                'paint': {
-                    'line-color': 'pink',
-                    'line-width': 1.3
-                },
-                filter: ["!=", "COUNT", 0],
-                'layout': { 'visibility': 'none' },
-            });
-
+            //da boundaries added to base map to make bus stops stand out
             map_dem.addLayer({
                 'id': 'da',
                 'type': 'line',
@@ -132,6 +120,7 @@ fetch('https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/hea
                 'layout': { 'visibility': 'visible' },
             });
 
+            //bus stops
             map_dem.addLayer({
                 'id': 'bus',
                 'type': 'circle',
@@ -146,30 +135,32 @@ fetch('https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/hea
                 },
             });
 
+            //transit hex grid
             map_dem.addLayer({
                 'id': 'Transit',
                 'type': 'fill',
-                'source': 'hexgrid', // Source ID for the buffer layer
+                'source': 'hexgrid',
                 'paint': {
-                    'fill-color': 'rgb(152, 211, 144)', // Buffer color
+                    'fill-color': 'rgb(152, 211, 144)',
                     'fill-opacity': 0.9,
                     'fill-outline-color': 'black',
                 },
-                'layout': { 'visibility': 'none' },
+                'layout': { 'visibility': 'none' },  //intial layer visibility set to none so the button can toggle it
                 filter: ["!=", "COUNT", 0]
             });
 
 
+            //mother tongue layer
             map_dem.addLayer({
                 'id': 'Mother Tongue',
                 'type': 'fill',
                 'source': 'mother_tongue',
-                'layout': { 'visibility': 'none' },
+                'layout': { 'visibility': 'none' },  //intial layer visibility set to none so the button can toggle it
                 'paint': {
                     'fill-outline-color': 'black',
                     'fill-color': [
                         'step',
-                        ['get', "Residents that who speak a non official language as a first language (%):"], // Property you want to use for coloring
+                        ['get', "Residents that who speak a non official language as a first language (%):"],
                         '#F4D3C4', // default, 0 to 19% inclusive 
                         20.0, "#F0B1A0", // 20 to 39% inclusive
                         40.0, "#DC725E", // 40 to 59% inclusive
@@ -179,16 +170,17 @@ fetch('https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/hea
                 },
             });
 
+            //age layer
             map_dem.addLayer({
                 'id': 'Age',
                 'type': 'fill',
                 'source': 'age',
-                'layout': { 'visibility': 'none' },
+                'layout': { 'visibility': 'none' },  //intial layer visibility set to none so the button can toggle it
                 'paint': {
                     'fill-outline-color': 'black',
                     'fill-color': [
                         'step',
-                        ['get', "Population above 65 (%)"], // Property you want to use for coloring
+                        ['get', "Population above 65 (%)"], 
                         '#67A4CE', // default, 0 to 4% inclusive 
                         5.0, "#8DBCDB", // 5 to 9% inclusive
                         10.0, "#A6CBE3", // 10 to 14% inclusive
@@ -200,15 +192,17 @@ fetch('https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/hea
                     ]
                 },
             });
+
+            //layer to show number of bus stops in each hex
             map_dem.addLayer({
                 id: 'bus_labels',
                 type: 'symbol',
                 source: 'hexgrid',
                 layout: {
-                    'text-field': ['to-string', ['get', 'COUNT']], // Pulls number from GeoJSON
+                    'text-field': ['to-string', ['get', 'COUNT']], // Pulls number of stops from GeoJSON
                     'text-font': ['DIN Offc Pro Bold', 'Arial Unicode MS Bold'],
                     'text-size': 10,
-                    'visibility': 'none'
+                    'visibility': 'none' //intial layer visibility set to none so the button can toggle it
                 },
                 paint: {
                     'text-color': 'black'
@@ -221,6 +215,7 @@ fetch('https://raw.githubusercontent.com/faizachwd/GGR472-Final-Project/refs/hea
 
 
 // Wait for the DOM to fully load before running the script
+// buttons for controlling layres
 document.addEventListener('DOMContentLoaded', () => {
     // Layer toggle functionality for static buttons
     document.getElementById('toggle-age').addEventListener('click', function () {
@@ -255,6 +250,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // 2nd Map Navigation Controls
 map_dem.addControl(new mapboxgl.NavigationControl());
 
+//2nd map pop-ups
+
 map_dem.on('click', 'Age', (e) => {
     console.log(e.features[0].properties['GEO_NAME'])
     new mapboxgl.Popup()
@@ -275,8 +272,5 @@ map_dem.on('click', 'Mother Tongue', (e) => {
         .addTo(map_dem);
 });
 
+//syncs maps
 syncMaps(map_can_fed, map_dem)
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-// LEGENDS
