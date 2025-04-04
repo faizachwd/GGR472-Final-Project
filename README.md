@@ -7,8 +7,8 @@ This website displays maps depicting the density of healthy retail food options 
 The specific metrics visualized alongside their data sources are:
 
 Canadian Food Environment Dataset (Can-FED):
-    -  Modified Retail Food Environment Index (mRFEI) which measures the proportion of retail options that sell fresh and healthy food within a 3km buffer
-    - Absolute density is not reported, instead the densities are grouped and ranked 1-4. Group 1 contains the lowest absolute densities and group 4 contains the highest absolute densities.
+* Modified Retail Food Environment Index (mRFEI) which measures the proportion of retail options that sell fresh and healthy food within a 3km buffer
+* Absolute density is not reported, instead the densities are grouped and ranked 1-4. Group 1 contains the lowest absolute densities and group 4 contains the highest absolute densities.
 
 Census 2016:
     - The percentage of people that do not an official language as their mother tongue
