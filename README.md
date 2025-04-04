@@ -1,5 +1,5 @@
-### Retail Food Access in Mississauga: A Web Map
-##### Mapping Mississauga’s Retail Food Environment in Conjunction with Demographic Characteristics and Access to Transit at the Dissemination Area Level
+# Retail Food Access in Mississauga: A Web Map
+### Mapping Mississauga’s Retail Food Environment in Conjunction with Demographic Characteristics and Access to Transit at the Dissemination Area Level
 
 This website displays maps depicting the density of healthy retail food options within the city of Mississauga at the dissemination area level alongside maps of MiWay bus stops, the percentage of the population above 65 and ethnocultural diversity within the city. Our objective was to empower NGOs like Nucleus Living with relevant data driven information to help target their outreach and community interventions, educate community organizers and local stakeholders about potential vulnuerable populations and provide researchers an added persepective on food insecurity in Mississauga. 
 
