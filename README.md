@@ -11,9 +11,9 @@ Canadian Food Environment Dataset (Can-FED):
 * Absolute density is not reported, instead the densities are grouped and ranked 1-4. Group 1 contains the lowest absolute densities and group 4 contains the highest absolute densities.
 
 Census 2016:
-    - The percentage of people that do not an official language as their mother tongue
-        - Mother Tongue: “[...] the first language learned at home in childhood and still understood by the person” (Statistics Canada, 2016 Census), used as a proxy for ethnocultural diversity
-    - The percentage of people that are above 65
+* The percentage of the population that do not speak an official language as their mother tongue
+        * Mother Tongue: “[...] the first language learned at home in childhood and still understood by the person” (Statistics Canada, 2016 Census), used as a proxy for ethnocultural diversity
+* The percentage of the population that is above 65
 
 MiWay Bus Stops
-    - All the bus stops part of Missausagas public transit system
+* All the bus stops part of Missausagas public transit system
